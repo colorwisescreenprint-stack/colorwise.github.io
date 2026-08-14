@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colorwise — Screen Print Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Hind+Siliguri:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EFECE3;
+    --ink:#191713;
+    --red:#D6321C;
+    --yellow:#E8B21A;
+    --teal:#1F6F63;
+    --line: rgba(25,23,19,0.18);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Hind Siliguri','Space Mono',monospace;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  .en{font-family:'Space Mono',monospace; letter-spacing:0.02em;}
+  ::selection{background:var(--red); color:var(--paper);}
+
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:radial-gradient(circle, rgba(25,23,19,0.06) 1px, transparent 1px);
+    background-size:5px 5px;
+    pointer-events:none; z-index:1; opacity:0.5;
+  }
+  a{color:inherit;}
+
+  /* ===== NAV ===== */
+  nav{
+    position:sticky; top:0; z-index:50;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:18px 6vw;
+    background:var(--paper);
+    border-bottom:2px solid var(--ink);
+    gap:16px; flex-wrap:wrap;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Archivo Black', sans-serif;
+    font-size:1.05rem; text-transform:uppercase; letter-spacing:0.02em;
+  }
+  .logo img{ height:38px; width:auto; display:block; }
+  .logo span{color:var(--red);}
+  .logo .word{ line-height:1.05; }
+  .logo .word small{
+    display:block; font-family:'Space Mono',monospace; font-size:0.55rem;
+    letter-spacing:0.08em; opacity:0.65; font-weight:400; text-transform:uppercase;
+  }
+  .foot-logo{ display:flex; align-items:center; gap:8px; }
+  .foot-logo img{ height:22px; width:auto; }
+  .navlinks{display:flex; gap:28px; font-size:0.85rem;}
+  .navlinks a{ text-decoration:none; font-weight:600; position:relative; }
+  .navlinks a::after{
+    content:""; position:absolute; left:0; bottom:-4px;
+    width:0; height:2px; background:var(--red);
+    transition:width 0.25s ease;
+  }
+  .navlinks a:hover::after{width:100%;}
+  .nav-right{display:flex; align-items:center; gap:14px;}
+  .nav-cta{
+    background:var(--ink); color:var(--paper);
+    padding:8px 18px; font-size:0.82rem; font-weight:700;
+    text-decoration:none; border:2px solid var(--ink);
+  }
+  .nav-cta:hover{background:transparent; color:var(--ink);}
+  #langToggle{
+    font-family:'Space Mono',monospace; font-size:0.78rem; font-weight:700;
+    background:transparent; border:2px solid var(--ink); color:var(--ink);
+    padding:7px 12px; cursor:pointer; letter-spacing:0.05em;
+  }
+  #langToggle:hover{ background:var(--ink); color:var(--paper); }
+  @media (max-width:760px){ .navlinks{display:none;} }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative; min-height:92vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:8vh 6vw 6vh; border-bottom:2px solid var(--ink);
+  }
+  .eyebrow{
+    font-family:'Space Mono',monospace; font-size:0.78rem;
+    text-transform:uppercase; letter-spacing:0.15em; color:var(--teal);
+    margin-bottom:22px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{ content:""; width:26px; height:2px; background:var(--teal); }
+
+  .stack{ position:relative; display:inline-block; }
+  .stack h1{
+    font-family:'Archivo Black', sans-serif;
+    font-size:clamp(2.3rem, 7.5vw, 5.6rem);
+    line-height:1.02; text-transform:uppercase; letter-spacing:-0.01em;
+    color:var(--ink); position:relative; z-index:3;
+  }
+  .stack h1 .ghost{
+    position:absolute; top:0; left:0; z-index:1; color:var(--red);
+    opacity:0.72; transform:translate(6px,6px); animation:jitter1 6s ease-in-out infinite;
+  }
+  .stack h1 .ghost2{
+    position:absolute; top:0; left:0; z-index:2; color:var(--yellow);
+    opacity:0.6; transform:translate(-5px,3px); animation:jitter2 7s ease-in-out infinite;
+  }
+  @keyframes jitter1{ 0%,100%{transform:translate(6px,6px);} 50%{transform:translate(4px,8px);} }
+  @keyframes jitter2{ 0%,100%{transform:translate(-5px,3px);} 50%{transform:translate(-7px,5px);} }
+  @media (prefers-reduced-motion: reduce){ .stack h1 .ghost, .stack h1 .ghost2{animation:none;} }
+
+  .hero-sub{ margin-top:30px; max-width:560px; font-size:1.08rem; color:rgba(25,23,19,0.82); }
+  .hero-row{ margin-top:44px; display:flex; flex-wrap:wrap; gap:16px; align-items:center; }
+  .btn-primary{
+    background:var(--red); color:var(--paper); padding:15px 30px;
+    font-weight:700; font-size:0.95rem; text-decoration:none; border:2px solid var(--red);
+    text-transform:uppercase; letter-spacing:0.03em; transition:all 0.2s ease;
+  }
+  .btn-primary:hover{ background:transparent; color:var(--red); }
+  .btn-ghost{
+    padding:15px 26px; font-weight:700; font-size:0.95rem; text-decoration:none;
+    border:2px solid var(--ink); text-transform:uppercase; letter-spacing:0.03em;
+  }
+  .btn-ghost:hover{ background:var(--ink); color:var(--paper); }
+
+  .swatches{ position:absolute; right:6vw; bottom:6vh; display:flex; gap:10px; z-index:2; }
+  .swatch{
+    width:44px; height:44px; border:2px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Mono',monospace; font-size:0.6rem;
+  }
+  @media (max-width:800px){ .swatches{display:none;} }
+
+  /* ===== MARQUEE ===== */
+  .marquee{
+    border-bottom:2px solid var(--ink); background:var(--ink); color:var(--paper);
+    overflow:hidden; white-space:nowrap; padding:12px 0;
+  }
+  .marquee-track{
+    display:inline-block; animation:scroll 22s linear infinite;
+    font-family:'Space Mono',monospace; font-size:0.85rem; letter-spacing:0.08em;
+  }
+  .marquee-track span{ margin:0 2em; text-transform:uppercase; }
+  .marquee-track span.dot{ color:var(--yellow); }
+  @keyframes scroll{ 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+
+  section{ padding:9vh 6vw; border-bottom:2px solid var(--ink); position:relative; }
+  .sec-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    margin-bottom:60px; flex-wrap:wrap; gap:16px;
+  }
+  .sec-num{ font-family:'Space Mono',monospace; font-size:0.8rem; color:var(--red); font-weight:700; }
+  .sec-title{
+    font-family:'Archivo Black', sans-serif; font-size:clamp(1.8rem, 4vw, 3rem);
+    text-transform:uppercase; max-width:640px;
+  }
+  .sec-note{ font-size:0.9rem; max-width:260px; color:rgba(25,23,19,0.7); }
+
+  /* ===== SERVICES ===== */
+  .plates{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    border-top:2px solid var(--ink); border-left:2px solid var(--ink);
+  }
+  .plate{
+    border-right:2px solid var(--ink); border-bottom:2px solid var(--ink);
+    padding:34px 26px; min-height:260px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    transition:background 0.25s ease, color 0.25s ease; position:relative;
+  }
+  .plate:hover{ background:var(--ink); color:var(--paper); }
+  .plate:hover .plate-ink{ opacity:1; }
+  .plate-num{ font-family:'Space Mono',monospace; font-size:0.75rem; opacity:0.6; }
+  .plate-ink{
+    width:16px; height:16px; border-radius:50%;
+    position:absolute; top:32px; right:26px; opacity:0.85; transition:opacity 0.25s ease;
+  }
+  .plate h3{ font-family:'Archivo Black', sans-serif; font-size:1.15rem; text-transform:uppercase; margin-top:26px; }
+  .plate p{ font-size:0.88rem; margin-top:12px; opacity:0.85; }
+  @media (max-width:900px){ .plates{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .plates{grid-template-columns:1fr;} }
+
+  /* ===== PROCESS ===== */
+  .steps{ border-top:2px solid var(--ink); }
+  .step{
+    display:grid; grid-template-columns:90px 1fr 1fr; gap:24px;
+    padding:26px 0; border-bottom:1px solid var(--line); align-items:baseline;
+  }
+  .step:hover{ background:rgba(214,50,28,0.05); }
+  .step-mark{ font-family:'Archivo Black', sans-serif; font-size:1.6rem; color:var(--red); }
+  .step-title{ font-family:'Archivo Black', sans-serif; font-size:1.15rem; text-transform:uppercase; }
+  .step-desc{ font-size:0.92rem; color:rgba(25,23,19,0.75); }
+  @media (max-width:700px){ .step{grid-template-columns:50px 1fr;} .step-desc{grid-column:2/3;} }
+
+  /* ===== WORK ===== */
+  .work-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  .work-card{
+    border:2px solid var(--ink); position:relative; overflow:hidden;
+    display:flex; align-items:flex-end; background:#fff;
+    aspect-ratio:4/5;
+  }
+  .work-card img{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:center;
+    filter:grayscale(15%);
+    transition:transform 0.4s ease;
+  }
+  .work-card:hover img{ transform:scale(1.05); }
+  .work-card .overlay{
+    position:absolute; left:0; right:0; bottom:0; z-index:2;
+    padding:16px 18px;
+    background:linear-gradient(to top, rgba(25,23,19,0.88), transparent);
+    color:var(--paper); width:100%;
+  }
+  .overlay .tag{ font-family:'Space Mono',monospace; font-size:0.68rem; text-transform:uppercase; opacity:0.85; }
+  .overlay .name{ font-family:'Archivo Black',sans-serif; font-size:1rem; margin-top:4px; text-transform:uppercase; }
+  @media (max-width:900px){ .work-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .work-grid{grid-template-columns:1fr;} }
+
+  /* ===== ABOUT ===== */
+  .strip{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:center; }
+  .strip p{ font-size:1.02rem; margin-bottom:16px; color:rgba(25,23,19,0.85); }
+  .stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:2px; border:2px solid var(--ink); }
+  .stat{ background:var(--paper); padding:26px 20px; border-right:2px solid var(--ink); border-bottom:2px solid var(--ink); }
+  .stat:nth-child(2n){ border-right:none; }
+  .stat:nth-last-child(-n+2){ border-bottom:none; }
+  .stat b{ font-family:'Archivo Black',sans-serif; font-size:2rem; color:var(--red); display:block; }
+  .stat span{ font-size:0.8rem; text-transform:uppercase; letter-spacing:0.04em; }
+  @media (max-width:800px){ .strip{grid-template-columns:1fr;} }
+
+  /* ===== CONTACT ===== */
+  .contact{ border-bottom:none; }
+  .contact-wrap{ display:grid; grid-template-columns:1.2fr 1fr; gap:60px; }
+  .contact h2{
+    font-family:'Archivo Black',sans-serif; font-size:clamp(2rem,5vw,3.4rem);
+    text-transform:uppercase; line-height:1.05; margin-bottom:24px;
+  }
+  .contact h2 .hl{ color:var(--red); }
+  .contact-list{ list-style:none; margin-top:30px; }
+  .contact-list li{
+    padding:16px 0; border-bottom:1px solid var(--line);
+    display:flex; justify-content:space-between; gap:12px; font-size:0.95rem; flex-wrap:wrap;
+  }
+  .contact-list li b{ font-family:'Space Mono',monospace; text-transform:uppercase; font-size:0.78rem; opacity:0.6; }
+  .contact-list li a{ text-decoration:none; font-weight:600; }
+  .contact-list li a:hover{ color:var(--red); }
+  form{ display:flex; flex-direction:column; gap:14px; }
+  form input, form textarea{
+    background:transparent; border:none; border-bottom:2px solid var(--ink);
+    padding:12px 4px; font-family:'Hind Siliguri',sans-serif; font-size:1rem;
+    color:var(--ink); outline:none;
+  }
+  form input:focus, form textarea:focus{ border-color:var(--red); }
+  form textarea{ resize:vertical; min-height:90px; }
+  form button{
+    margin-top:10px; background:var(--ink); color:var(--paper); border:2px solid var(--ink);
+    padding:15px; font-weight:700; text-transform:uppercase; letter-spacing:0.03em;
+    cursor:pointer; font-size:0.95rem; transition:all 0.2s ease;
+  }
+  form button:hover{ background:transparent; color:var(--ink); }
+  @media (max-width:800px){ .contact-wrap{grid-template-columns:1fr;} }
+
+  footer{
+    padding:22px 6vw; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-family:'Space Mono',monospace; font-size:0.75rem; text-transform:uppercase;
+    letter-spacing:0.04em; color:rgba(25,23,19,0.6);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <img src="assets/logo.png" alt="Colorwise Screen Print Design logo">
+    <div class="word">COLORWISE<small class="en">Screen Print Design</small></div>
+  </div>
+  <div class="navlinks">
+    <a href="#services" data-i18n="nav_services">সার্ভিস</a>
+    <a href="#process" data-i18n="nav_process">প্রসেস</a>
+    <a href="#work" data-i18n="nav_work">কাজ</a>
+    <a href="#about" data-i18n="nav_about">আমরা</a>
+  </div>
+  <div class="nav-right">
+    <button id="langToggle" class="en">EN</button>
+    <a href="#contact" class="nav-cta" data-i18n="nav_contact">যোগাযোগ করুন</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow en">SCREEN PRINT DESIGN STUDIO — DHAKA</div>
+  <div class="stack">
+    <h1 class="ghost" aria-hidden="true" data-i18n-html="hero_h1">আপনার<br>ডিজাইন,<br>প্রিন্ট রেডি</h1>
+    <h1 class="ghost2" aria-hidden="true" data-i18n-html="hero_h1">আপনার<br>ডিজাইন,<br>প্রিন্ট রেডি</h1>
+    <h1 data-i18n-html="hero_h1">আপনার<br>ডিজাইন,<br>প্রিন্ট রেডি</h1>
+  </div>
+  <p class="hero-sub" data-i18n="hero_sub">গার্মেন্টস ফ্যাক্টরির জন্য স্ক্রিন প্রিন্ট ডিজাইন, কালার সেপারেশন আর প্রোডাকশন-রেডি আর্টওয়ার্ক — সব একজায়গায়। ফাইল হাতে পেলেই সরাসরি স্ক্রিনে বসিয়ে দেওয়া যায়, রিওয়ার্কের ঝামেলা নেই।</p>
+  <div class="hero-row">
+    <a href="#contact" class="btn-primary" data-i18n="hero_cta1">প্রজেক্ট শুরু করুন</a>
+    <a href="#work" class="btn-ghost" data-i18n="hero_cta2">কাজ দেখুন</a>
+  </div>
+  <div class="swatches" aria-hidden="true">
+    <div class="swatch" style="background:var(--red); color:var(--paper);">R</div>
+    <div class="swatch" style="background:var(--yellow);">Y</div>
+    <div class="swatch" style="background:var(--teal); color:var(--paper);">T</div>
+    <div class="swatch" style="background:var(--ink); color:var(--paper);">K</div>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>স্পট কালার সেপারেশন</span><span class="dot">●</span>
+    <span>মকআপ ও প্রুফিং</span><span class="dot">●</span>
+    <span>ফ্যাক্টরি-রেডি ফাইল</span><span class="dot">●</span>
+    <span>SPOT COLOR SEPARATION</span><span class="dot">●</span>
+    <span>MOCKUP & PROOFING</span><span class="dot">●</span>
+    <span>FACTORY-READY FILES</span><span class="dot">●</span>
+    <span>স্পট কালার সেপারেশন</span><span class="dot">●</span>
+    <span>মকআপ ও প্রুফিং</span><span class="dot">●</span>
+    <span>ফ্যাক্টরি-রেডি ফাইল</span><span class="dot">●</span>
+    <span>SPOT COLOR SEPARATION</span><span class="dot">●</span>
+    <span>MOCKUP & PROOFING</span><span class="dot">●</span>
+    <span>FACTORY-READY FILES</span><span class="dot">●</span>
+  </div>
+</div>
+
+<section id="services">
+  <div class="sec-head">
+    <div>
+      <div class="sec-num en">01 / SERVICES</div>
+      <h2 class="sec-title" data-i18n="services_title">যা যা করে দিই</h2>
+    </div>
+    <p class="sec-note" data-i18n="services_note">প্রতিটা কাজ প্রিন্ট প্রোডাকশনের জন্য অপ্টিমাইজড — মেশ কাউন্ট আর ইঙ্ক টাইপ মাথায় রেখে।</p>
+  </div>
+
+  <div class="plates">
+    <div class="plate">
+      <span class="plate-ink" style="background:var(--red);"></span>
+      <div class="plate-num en">PLATE 01</div>
+      <div>
+        <h3 data-i18n="s1_title">কাস্টম ডিজাইন</h3>
+        <p data-i18n="s1_desc">টি-শার্ট, পোলো, ইউনিফর্ম — বায়ারের ব্রিফ থেকে সম্পূর্ণ প্রিন্ট-রেডি আর্টওয়ার্ক।</p>
+      </div>
+    </div>
+    <div class="plate">
+      <span class="plate-ink" style="background:var(--yellow);"></span>
+      <div class="plate-num en">PLATE 02</div>
+      <div>
+        <h3 data-i18n="s2_title">কালার সেপারেশন</h3>
+        <p data-i18n="s2_desc">স্পট কালার ও হাফটোন সেপারেশন, প্রতিটা স্ক্রিনের জন্য আলাদা ফাইল রেডি করা।</p>
+      </div>
+    </div>
+    <div class="plate">
+      <span class="plate-ink" style="background:var(--teal);"></span>
+      <div class="plate-num en">PLATE 03</div>
+      <div>
+        <h3 data-i18n="s3_title">মকআপ ও প্রুফিং</h3>
+        <p data-i18n="s3_desc">বায়ার অ্যাপ্রুভালের জন্য রিয়েলিস্টিক গার্মেন্ট মকআপ, প্রিন্ট হওয়ার আগেই দেখে নেওয়া যায়।</p>
+      </div>
+    </div>
+    <div class="plate">
+      <span class="plate-ink" style="background:var(--ink);"></span>
+      <div class="plate-num en">PLATE 04</div>
+      <div>
+        <h3 data-i18n="s4_title">রিভিশন ও ডেলিভারি</h3>
+        <p data-i18n="s4_desc">AI, PSD, PDF ফরম্যাটে ফাইনাল ফাইল ডেলিভারি, দরকার হলে আনলিমিটেড রিভিশন।</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="sec-head">
+    <div>
+      <div class="sec-num en">02 / PROCESS</div>
+      <h2 class="sec-title" data-i18n="process_title">কাজ যেভাবে এগোয়</h2>
+    </div>
+    <p class="sec-note" data-i18n="process_note">ব্রিফ পাঠানো থেকে স্ক্রিনে বসানো পর্যন্ত — চারটা ধাপ।</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-mark en">01</div>
+      <div class="step-title" data-i18n="p1_title">ব্রিফ ও রেফারেন্স</div>
+      <div class="step-desc" data-i18n="p1_desc">ডিজাইনের আইডিয়া, ফেব্রিক টাইপ আর কতগুলো কালার লাগবে — এটুকু জানালেই যথেষ্ট।</div>
+    </div>
+    <div class="step">
+      <div class="step-mark en">02</div>
+      <div class="step-title" data-i18n="p2_title">ড্রাফট ডিজাইন</div>
+      <div class="step-desc" data-i18n="p2_desc">২৪–৪৮ ঘণ্টার মধ্যে প্রথম ড্রাফট, মকআপসহ পাঠানো হয় রিভিউয়ের জন্য।</div>
+    </div>
+    <div class="step">
+      <div class="step-mark en">03</div>
+      <div class="step-title" data-i18n="p3_title">কালার সেপারেশন</div>
+      <div class="step-desc" data-i18n="p3_desc">অ্যাপ্রুভ হলে প্রতিটা ইঙ্ক কালারের জন্য আলাদা স্ক্রিন-রেডি প্লেট তৈরি হয়।</div>
+    </div>
+    <div class="step">
+      <div class="step-mark en">04</div>
+      <div class="step-title" data-i18n="p4_title">ফাইনাল ফাইল</div>
+      <div class="step-desc" data-i18n="p4_desc">প্রোডাকশন ফরম্যাটে ফাইল হ্যান্ডওভার — সরাসরি স্ক্রিন এক্সপোজে বসানো যায়।</div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="sec-head">
+    <div>
+      <div class="sec-num en">03 / WORK</div>
+      <h2 class="sec-title" data-i18n="work_title">সাম্প্রতিক কাজ</h2>
+    </div>
+    <p class="sec-note" data-i18n="work_note">নির্বাচিত কিছু প্রজেক্টের ডিজাইন নমুনা।</p>
+  </div>
+  <div class="work-grid">
+    <div class="work-card">
+      <img src="assets/work-mockup-breakrules.jpg" alt="Break Rules t-shirt mockup">
+      <div class="overlay">
+        <div class="tag en">GARMENT MOCKUP</div>
+        <div class="name" data-i18n="w0">ব্রেক রুলস</div>
+      </div>
+    </div>
+    <div class="work-card">
+      <img src="assets/work-wolf.jpg" alt="The Hunter wolf design">
+      <div class="overlay">
+        <div class="tag en">ANIMAL · TYPE</div>
+        <div class="name" data-i18n="w1">দ্য হান্টার</div>
+      </div>
+    </div>
+    <div class="work-card">
+      <img src="assets/work-death.jpg" alt="Death reaper design">
+      <div class="overlay">
+        <div class="tag en">ILLUSTRATION · TYPE</div>
+        <div class="name" data-i18n="w2">ডেথ</div>
+      </div>
+    </div>
+    <div class="work-card">
+      <img src="assets/work-dream.jpg" alt="Every Man Has a Dream design">
+      <div class="overlay">
+        <div class="tag en">BOLD TYPE</div>
+        <div class="name" data-i18n="w3">এভরি ম্যান হ্যাজ আ ড্রিম</div>
+      </div>
+    </div>
+    <div class="work-card">
+      <img src="assets/work-shadow.jpg" alt="Shadow figure design">
+      <div class="overlay">
+        <div class="tag en">CONCEPT ART</div>
+        <div class="name" data-i18n="w4">শ্যাডো</div>
+      </div>
+    </div>
+    <div class="work-card">
+      <img src="assets/work-keffiyeh.jpg" alt="Portrait illustration design">
+      <div class="overlay">
+        <div class="tag en">PORTRAIT · LINE ART</div>
+        <div class="name" data-i18n="w5">পিস</div>
+      </div>
+    </div>
+    <div class="work-card">
+      <img src="assets/work-spider.jpg" alt="Spider illustration design">
+      <div class="overlay">
+        <div class="tag en">SILHOUETTE</div>
+        <div class="name" data-i18n="w6">স্পাইডার</div>
+      </div>
+    </div>
+    <div class="work-card">
+      <img src="assets/work-extrachill.jpg" alt="Extra Chill lettering design">
+      <div class="overlay">
+        <div class="tag en">HAND LETTERING</div>
+        <div class="name" data-i18n="w7">এক্সট্রা চিল</div>
+      </div>
+    </div>
+    <div class="work-card">
+      <img src="assets/work-trustnoone.jpg" alt="Trust No One design">
+      <div class="overlay">
+        <div class="tag en">TYPE · ILLUSTRATION</div>
+        <div class="name" data-i18n="w8">ট্রাস্ট নো ওয়ান</div>
+      </div>
+    </div>
+    <div class="work-card">
+      <img src="assets/work-beloyal.jpg" alt="Be Loyal to Your Future typography design">
+      <div class="overlay">
+        <div class="tag en">METALLIC TYPE</div>
+        <div class="name" data-i18n="w9">বি লয়্যাল</div>
+      </div>
+    </div>
+    <div class="work-card">
+      <img src="assets/work-wakeup.jpg" alt="Wake Up typography design">
+      <div class="overlay">
+        <div class="tag en">TYPOGRAPHY</div>
+        <div class="name" data-i18n="w10">ওয়েক আপ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="sec-head">
+    <div>
+      <div class="sec-num en">04 / ABOUT</div>
+      <h2 class="sec-title" data-i18n="about_title">যেভাবে কাজ করি</h2>
+    </div>
+  </div>
+  <div class="strip">
+    <div>
+      <p data-i18n="about_p1">আমি সরাসরি গার্মেন্টস ফ্যাক্টরির স্ক্রিন প্রিন্টিং লাইনের জন্য ডিজাইন করি — তাই প্রতিটা ফাইল প্রোডাকশনের বাস্তবতা মাথায় রেখে বানানো হয়: মেশ কাউন্ট, ইঙ্ক স্প্রেড, রেজিস্ট্রেশন টলারেন্স।</p>
+      <p data-i18n="about_p2">ডিজাইন সুন্দর হলেই হয় না — স্ক্রিনে ঠিকমতো বসতে হবে, প্রিন্ট কোয়ালিটি ধরে রাখতে হবে বড় অর্ডারেও। এটাই আমার কাজের মূল জায়গা।</p>
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><b class="en">6+</b><span data-i18n="stat1">বছরের অভিজ্ঞতা</span></div>
+      <div class="stat"><b class="en">200+</b><span data-i18n="stat2">ডিজাইন ডেলিভার</span></div>
+      <div class="stat"><b class="en">24–48h</b><span data-i18n="stat3">ড্রাফট টার্নঅ্যারাউন্ড</span></div>
+      <div class="stat"><b class="en">4</b><span data-i18n="stat4">ম্যাক্স স্পট কালার</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="contact-wrap">
+    <div>
+      <h2 data-i18n-html="contact_h2">প্রজেক্ট নিয়ে<br><span class="hl">কথা বলি</span></h2>
+      <p style="max-width:420px; color:rgba(25,23,19,0.8);" data-i18n="contact_sub">ডিজাইন ব্রিফ, ফেব্রিক আর কালার সংখ্যা জানিয়ে মেসেজ পাঠান — ড্রাফটসহ রিপ্লাই পাবেন।</p>
+      <ul class="contact-list">
+        <li><b class="en">Whatsapp</b> <a href="https://wa.me/8801581225837" target="_blank" rel="noopener">+880 1581-225837</a></li>
+        <li><b class="en">Email</b> <a href="mailto:colorwisescreenprint@gmail.com">colorwisescreenprint@gmail.com</a></li>
+        <li><b class="en">Location</b> <span data-i18n="loc">সেক্টর ১০, উত্তরা, ঢাকা, বাংলাদেশ</span></li>
+      </ul>
+    </div>
+    <form onsubmit="event.preventDefault(); this.querySelector('button').textContent=this.querySelector('button').dataset[currentLang+'sent'];">
+      <input type="text" data-i18n-ph="ph_name" placeholder="নাম / ফ্যাক্টরির নাম" required>
+      <input type="text" data-i18n-ph="ph_phone" placeholder="ফোন / হোয়াটসঅ্যাপ" required>
+      <textarea data-i18n-ph="ph_msg" placeholder="ডিজাইন সম্পর্কে সংক্ষেপে লিখুন..." required></textarea>
+      <button type="submit" data-i18n="btn_send" data-bnsent="পাঠানো হয়েছে ✓" data-ensent="Sent ✓">মেসেজ পাঠান</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-logo">
+    <img src="assets/logo.png" alt="Colorwise logo">
+    <span class="en">© 2026 COLORWISE</span>
+  </div>
+  <span class="en">SCREEN PRINT DESIGN · UTTARA, DHAKA, BD</span>
+</footer>
+
+<script>
+const translations = {
+  bn: {
+    nav_services:"সার্ভিস", nav_process:"প্রসেস", nav_work:"কাজ", nav_about:"আমরা", nav_contact:"যোগাযোগ করুন",
+    hero_h1:"আপনার<br>ডিজাইন,<br>প্রিন্ট রেডি",
+    hero_sub:"গার্মেন্টস ফ্যাক্টরির জন্য স্ক্রিন প্রিন্ট ডিজাইন, কালার সেপারেশন আর প্রোডাকশন-রেডি আর্টওয়ার্ক — সব একজায়গায়। ফাইল হাতে পেলেই সরাসরি স্ক্রিনে বসিয়ে দেওয়া যায়, রিওয়ার্কের ঝামেলা নেই।",
+    hero_cta1:"প্রজেক্ট শুরু করুন", hero_cta2:"কাজ দেখুন",
+    services_title:"যা যা করে দিই",
+    services_note:"প্রতিটা কাজ প্রিন্ট প্রোডাকশনের জন্য অপ্টিমাইজড — মেশ কাউন্ট আর ইঙ্ক টাইপ মাথায় রেখে।",
+    s1_title:"কাস্টম ডিজাইন", s1_desc:"টি-শার্ট, পোলো, ইউনিফর্ম — বায়ারের ব্রিফ থেকে সম্পূর্ণ প্রিন্ট-রেডি আর্টওয়ার্ক।",
+    s2_title:"কালার সেপারেশন", s2_desc:"স্পট কালার ও হাফটোন সেপারেশন, প্রতিটা স্ক্রিনের জন্য আলাদা ফাইল রেডি করা।",
+    s3_title:"মকআপ ও প্রুফিং", s3_desc:"বায়ার অ্যাপ্রুভালের জন্য রিয়েলিস্টিক গার্মেন্ট মকআপ, প্রিন্ট হওয়ার আগেই দেখে নেওয়া যায়।",
+    s4_title:"রিভিশন ও ডেলিভারি", s4_desc:"AI, PSD, PDF ফরম্যাটে ফাইনাল ফাইল ডেলিভারি, দরকার হলে আনলিমিটেড রিভিশন।",
+    process_title:"কাজ যেভাবে এগোয়", process_note:"ব্রিফ পাঠানো থেকে স্ক্রিনে বসানো পর্যন্ত — চারটা ধাপ।",
+    p1_title:"ব্রিফ ও রেফারেন্স", p1_desc:"ডিজাইনের আইডিয়া, ফেব্রিক টাইপ আর কতগুলো কালার লাগবে — এটুকু জানালেই যথেষ্ট।",
+    p2_title:"ড্রাফট ডিজাইন", p2_desc:"২৪–৪৮ ঘণ্টার মধ্যে প্রথম ড্রাফট, মকআপসহ পাঠানো হয় রিভিউয়ের জন্য।",
+    p3_title:"কালার সেপারেশন", p3_desc:"অ্যাপ্রুভ হলে প্রতিটা ইঙ্ক কালারের জন্য আলাদা স্ক্রিন-রেডি প্লেট তৈরি হয়।",
+    p4_title:"ফাইনাল ফাইল", p4_desc:"প্রোডাকশন ফরম্যাটে ফাইল হ্যান্ডওভার — সরাসরি স্ক্রিন এক্সপোজে বসানো যায়।",
+    work_title:"সাম্প্রতিক কাজ", work_note:"নির্বাচিত কিছু প্রজেক্টের ডিজাইন নমুনা।",
+    w0:"ব্রেক রুলস", w1:"দ্য হান্টার", w2:"ডেথ", w3:"এভরি ম্যান হ্যাজ আ ড্রিম", w4:"শ্যাডো", w5:"পিস", w6:"স্পাইডার", w7:"এক্সট্রা চিল",
+    w8:"ট্রাস্ট নো ওয়ান", w9:"বি লয়্যাল", w10:"ওয়েক আপ",
+    about_title:"যেভাবে কাজ করি",
+    about_p1:"আমি সরাসরি গার্মেন্টস ফ্যাক্টরির স্ক্রিন প্রিন্টিং লাইনের জন্য ডিজাইন করি — তাই প্রতিটা ফাইল প্রোডাকশনের বাস্তবতা মাথায় রেখে বানানো হয়: মেশ কাউন্ট, ইঙ্ক স্প্রেড, রেজিস্ট্রেশন টলারেন্স।",
+    about_p2:"ডিজাইন সুন্দর হলেই হয় না — স্ক্রিনে ঠিকমতো বসতে হবে, প্রিন্ট কোয়ালিটি ধরে রাখতে হবে বড় অর্ডারেও। এটাই আমার কাজের মূল জায়গা।",
+    stat1:"বছরের অভিজ্ঞতা", stat2:"ডিজাইন ডেলিভার", stat3:"ড্রাফট টার্নঅ্যারাউন্ড", stat4:"ম্যাক্স স্পট কালার",
+    contact_h2:'প্রজেক্ট নিয়ে<br><span class="hl">কথা বলি</span>',
+    contact_sub:"ডিজাইন ব্রিফ, ফেব্রিক আর কালার সংখ্যা জানিয়ে মেসেজ পাঠান — ড্রাফটসহ রিপ্লাই পাবেন।",
+    loc:"সেক্টর ১০, উত্তরা, ঢাকা, বাংলাদেশ",
+    ph_name:"নাম / ফ্যাক্টরির নাম", ph_phone:"ফোন / হোয়াটসঅ্যাপ", ph_msg:"ডিজাইন সম্পর্কে সংক্ষেপে লিখুন...",
+    btn_send:"মেসেজ পাঠান"
+  },
+  en: {
+    nav_services:"Services", nav_process:"Process", nav_work:"Work", nav_about:"About", nav_contact:"Contact",
+    hero_h1:"Your<br>Design,<br>Print Ready",
+    hero_sub:"Screen print design, color separation, and production-ready artwork for garment factories — all in one place. Files that go straight to the screen, no rework needed.",
+    hero_cta1:"Start a Project", hero_cta2:"See the Work",
+    services_title:"What I Do",
+    services_note:"Every job is optimized for print production — mesh count and ink type kept in mind.",
+    s1_title:"Custom Design", s1_desc:"T-shirts, polos, uniforms — full print-ready artwork built from the buyer's brief.",
+    s2_title:"Color Separation", s2_desc:"Spot color and halftone separation, with a ready file for every screen.",
+    s3_title:"Mockup & Proofing", s3_desc:"Realistic garment mockups for buyer approval, before a single screen is exposed.",
+    s4_title:"Revision & Delivery", s4_desc:"Final files delivered as AI, PSD, PDF — unlimited revisions when you need them.",
+    process_title:"How It Works", process_note:"From brief to screen — four steps.",
+    p1_title:"Brief & Reference", p1_desc:"Just the design idea, fabric type, and number of colors needed.",
+    p2_title:"Draft Design", p2_desc:"First draft with mockup sent for review within 24–48 hours.",
+    p3_title:"Color Separation", p3_desc:"Once approved, a separate screen-ready plate is made for each ink color.",
+    p4_title:"Final Files", p4_desc:"Files handed over in production format — ready straight for screen exposure.",
+    work_title:"Recent Work", work_note:"A selection of design samples from past projects.",
+    w0:"Break Rules", w1:"The Hunter", w2:"Death", w3:"Every Man Has a Dream", w4:"Shadow", w5:"Peace", w6:"Spider", w7:"Extra Chill",
+    w8:"Trust No One", w9:"Be Loyal", w10:"Wake Up",
+    about_title:"How I Work",
+    about_p1:"I design directly for the screen printing line at garment factories — so every file is built with production reality in mind: mesh count, ink spread, registration tolerance.",
+    about_p2:"A design isn't done just because it looks good — it has to sit right on the screen and hold print quality even on large orders. That's the core of what I do.",
+    stat1:"Years Experience", stat2:"Designs Delivered", stat3:"Draft Turnaround", stat4:"Max Spot Colors",
+    contact_h2:'Let\'s Talk<br><span class="hl">About Your Project</span>',
+    contact_sub:"Send your design brief, fabric, and color count — you'll get a reply with a draft.",
+    loc:"Sector 10, Uttara, Dhaka, Bangladesh",
+    ph_name:"Name / Factory Name", ph_phone:"Phone / WhatsApp", ph_msg:"Briefly describe your design...",
+    btn_send:"Send Message"
+  }
+};
+
+let currentLang = 'bn';
+
+function applyLang(lang){
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.getElementById('langToggle').textContent = lang === 'bn' ? 'EN' : 'বাংলা';
+
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(translations[lang][key] !== undefined) el.textContent = translations[lang][key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+    const key = el.getAttribute('data-i18n-html');
+    if(translations[lang][key] !== undefined) el.innerHTML = translations[lang][key];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
+    const key = el.getAttribute('data-i18n-ph');
+    if(translations[lang][key] !== undefined) el.setAttribute('placeholder', translations[lang][key]);
+  });
+}
+
+document.getElementById('langToggle').addEventListener('click', ()=>{
+  applyLang(currentLang === 'bn' ? 'en' : 'bn');
+});
+</script>
+
+</body>
+</html>
